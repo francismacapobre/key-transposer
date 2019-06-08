@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Text, ButtonGroup } from 'react-native-elements';
+import { connect } from 'react-redux';
 
 class KeysButtons extends Component {
     constructor() {
@@ -16,8 +17,11 @@ class KeysButtons extends Component {
     }
 
     render() {
-        const buttons = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
-        const { selectedIndex } = this.state
+        const keys = this.props.keys;
+        console.log(keys);
+        const selectedKeyIndex = this.props.selectedValues;
+        const buttons = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+        const { selectedIndex } = this.state;
 
         return (
             <View
@@ -38,14 +42,13 @@ class KeysButtons extends Component {
                     buttons={buttons}
                     containerStyle={{height: 40}}
                     selectedTextStyle={{ color: 'orange', fontWeight: '900'}}
-                    
                 />
                 
-    
-
             </View>
         );
     }
 }
 
-export default KeysButtons;
+const mapStateToProps = ({ keys, selectedValues }) => ({ keys, selectedValues });
+
+export default connect(mapStateToProps)(KeysButtons);
