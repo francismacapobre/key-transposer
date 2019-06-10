@@ -2,26 +2,13 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Text, ButtonGroup } from 'react-native-elements';
 import { connect } from 'react-redux';
+import { selectKeyIndex } from '../actions';
 
 class KeysButtons extends Component {
-    constructor() {
-        super()
-        this.state = {
-            selectedIndex: 1
-        }
-        this.updateIndex = this.updateIndex.bind(this)
-    }
-
-    updateIndex (selectedIndex) {
-        this.setState({selectedIndex})
-    }
 
     render() {
-        const keys = this.props.keys;
-        console.log(keys);
-        const selectedKeyIndex = this.props.selectedValues;
-        const buttons = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
-        const { selectedIndex } = this.state;
+        const { selectedValues: { selectedKeyIndex } , keys } = this.props;
+        const keyButtons = keys.map(key => (key.shortKey ? '/' : [key.key]));
 
         return (
             <View
@@ -34,12 +21,12 @@ class KeysButtons extends Component {
                     Key
                 </Text>
                 <Text h1 style={{ marginBottom: 2 }}>
-                    C
+                    {keys[selectedKeyIndex].key}
                 </Text>
                 <ButtonGroup
-                    onPress={this.updateIndex}
-                    selectedIndex={selectedIndex}
-                    buttons={buttons}
+                    onPress={index => this.props.selectKeyIndex(index)}
+                    selectedIndex={selectedKeyIndex}
+                    buttons={keyButtons}
                     containerStyle={{height: 40}}
                     selectedTextStyle={{ color: 'orange', fontWeight: '900'}}
                 />
@@ -51,4 +38,4 @@ class KeysButtons extends Component {
 
 const mapStateToProps = ({ keys, selectedValues }) => ({ keys, selectedValues });
 
-export default connect(mapStateToProps)(KeysButtons);
+export default connect(mapStateToProps, { selectKeyIndex })(KeysButtons);

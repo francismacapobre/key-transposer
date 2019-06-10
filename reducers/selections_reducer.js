@@ -1,30 +1,28 @@
 import {
     SELECT_KEY_INDEX,
     SELECT_CAPO
-} from '../actions/types';
-
-const INITIAL_STATE = {
-    selectedKeyIndex: 0,
+  } from '../actions/types';
+  
+  const INITIAL_STATE = {
+    selectedKeyIndex: 2,
     selectedCapo: 7
-};
-
-// Best practice way to change states with Redux
-
-export default (state = INITIAL_STATE, action) => {
-    switch(action.type) {
-        case SELECT_KEY_INDEX: {
-            return {
-                ...state,
-                selectedKeyIndex: action.payload
-            };
-        }
-        case SELECT_CAPO: {
-            return {
-                ...state,
-                selectedCapo: action.payload
-            };
-        }
-        default: 
-            return state;
+  };
+  
+  export default (state = INITIAL_STATE, action) => {
+    switch (action.type) {
+      case SELECT_KEY_INDEX: {
+        return {
+          ...state,
+          selectedKeyIndex: action.payload
+        };
+      }
+      case SELECT_CAPO: {
+        return {
+          ...state,
+          selectedCapo: action.payload
+        };
+      }
+      default:
+        return state;
     }
-}
+  };
