@@ -3,12 +3,19 @@ import { View } from 'react-native';
 import { Text, ButtonGroup } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { selectKeyIndex } from '../actions';
+import { BUTTON_GROUP_STYLES } from '../constants';
+
 
 class KeysButtons extends Component {
 
     render() {
         const { selectedValues: { selectedKeyIndex } , keys } = this.props;
         const keyButtons = keys.map(key => (key.shortKey ? '/' : [key.key]));
+        const {
+            containerStyle,
+            buttonStyle,
+            selectedTextStyle
+        } = BUTTON_GROUP_STYLES;
 
         return (
             <View
@@ -27,8 +34,9 @@ class KeysButtons extends Component {
                     onPress={index => this.props.selectKeyIndex(index)}
                     selectedIndex={selectedKeyIndex}
                     buttons={keyButtons}
-                    containerStyle={{height: 40}}
-                    selectedTextStyle={{ color: 'orange', fontWeight: '900'}}
+                    containerStyle={containerStyle}
+                    buttonStyle={buttonStyle}
+                    selectedTextStyle={selectedTextStyle}
                 />
                 
             </View>
@@ -36,6 +44,9 @@ class KeysButtons extends Component {
     }
 }
 
+
+
+// const mapStateToProps = ({ <reducers> }) => ({ <returned-as-props> });
 const mapStateToProps = ({ keys, selectedValues }) => ({ keys, selectedValues });
 
 export default connect(mapStateToProps, { selectKeyIndex })(KeysButtons);

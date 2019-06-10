@@ -4,7 +4,7 @@ import {
   } from '../actions/types';
   
   const INITIAL_STATE = {
-    selectedKeyIndex: 2,
+    selectedKeyIndex: 0,
     selectedCapo: 7
   };
   
